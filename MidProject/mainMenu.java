@@ -13,27 +13,15 @@ public class mainMenu {
         boolean isRunning = true;
         while (isRunning) {
             System.out.println("==== MENU UTAMA ====");
-            System.out.println("1. Pilih Game");
-            System.out.println("2. Pendaftaran Akun Pengguna");
-            System.out.println("3. Tentukan Target Rank");
-            System.out.println("4. Request ke Joki");
-            System.out.println("5. Keluar");
+            System.out.println("1. Pilih Game dan Lanjutkan");
+            System.out.println("2. Keluar");
             String selectedMenu = input("Pilih");
 
             switch (selectedMenu) {
                 case "1":
-                    showGameSelection();
+                    startFullProcess();  // Mulai proses otomatis dari game selection hingga request ke joki
                     break;
                 case "2":
-                    registerUser();
-                    break;
-                case "3":
-                    chooseTargetRank();
-                    break;
-                case "4":
-                    requestToJoki();
-                    break;
-                case "5":
                     isRunning = false;
                     System.out.println("Terima kasih telah menggunakan layanan kami!");
                     break;
@@ -41,6 +29,13 @@ public class mainMenu {
                     System.out.println("Pilihan tidak valid, coba lagi.");
             }
         }
+    }
+
+    public static void startFullProcess() {
+        showGameSelection();     // Memilih game
+        registerUser();          // Pendaftaran user
+        chooseTargetRank();      // Menentukan target rank
+        requestToJoki();         // Request ke joki
     }
 
     public static void showGameSelection() {
