@@ -41,6 +41,9 @@ public class mainMenu {
                 case "3":
                     cancelOrder();
                     break;
+                case "4":
+                    orderHistory();
+                    break;
                 case "6":
                     isRunning = false;
                     System.out.println("Terima kasih telah menggunakan layanan kami!");
@@ -58,7 +61,8 @@ public class mainMenu {
         requestToJoki();
         chooseCompletionTime();
         applyVoucher();
-
+        paymentMethod();
+        showNotification();
     }
 
     public static void showGameSelection() {
@@ -86,7 +90,6 @@ public class mainMenu {
         System.out.println("3. +3 Rank (Rp. 45.000)");
         String rankChoice = input("Pilih target rank");
         System.out.println("Anda memilih: " + rankChoice);
-
 
     }
 
@@ -130,6 +133,61 @@ public class mainMenu {
             System.out.println("Selamat! Anda mendapatkan diskon 100%. Total harga: Rp. " + totalPrice);
         } else {
             System.out.println("Kode voucher salah. Harga normal tetap: Rp. " + totalPrice);
+        }
+    }
+
+    private static String paymentMethodChoice = "";
+    public static void paymentMethod() {
+        System.out.println("==== METODE PEMBAYARAN ====");
+        System.out.println("1. Transfer Bank");
+        System.out.println("2. E-Wallet (OVO, GoPay, DANA)");
+        System.out.println("3. Pulsa");
+
+        String paymentChoice = input("Pilih metode pembayaran");
+
+        // Menyimpan pilihan metode pembayaran
+        switch (paymentChoice) {
+            case "1":
+                paymentMethodChoice = "Transfer Bank";
+                System.out.println("Anda memilih Transfer Bank.");
+                System.out.println("Silakan transfer ke rekening: 1234567890 (Bank ABC).");
+                break;
+            case "2":
+                paymentMethodChoice = "E-Wallet";
+                System.out.println("Anda memilih E-Wallet.");
+                System.out.println("Silakan transfer ke nomor E-Wallet: 081234567890.");
+                break;
+            case "3":
+                paymentMethodChoice = "Pulsa";
+                System.out.println("Anda memilih pembayaran dengan Pulsa.");
+                System.out.println("Silakan kirim pulsa ke nomor: 081234567890.");
+                break;
+            default:
+                System.out.println("Pilihan tidak valid, silakan coba lagi.");
+                paymentMethod(); // Meminta input ulang jika pilihan tidak valid
+                return;
+        }
+
+        // Konfirmasi total harga setelah diskon (jika ada)
+        System.out.println("Total yang harus dibayar: Rp. " + totalPrice);
+        System.out.println("Terima kasih telah melakukan pemesanan. Silakan lakukan pembayaran untuk menyelesaikan transaksi.");
+    }
+
+    public static void showNotification () {
+        System.out.println("=========================================");
+        System.out.println("✨ Terima kasih telah melakukan pemesanan joki untuk akun game online Anda! ✨");
+        System.out.println("Saat ini, pesanan Anda sedang diproses. Kami akan segera menghubungi Anda dengan informasi lebih lanjut.");
+
+        while (true) {  // Loop terus-menerus hingga pengguna memberikan input yang benar
+            System.out.println("Untuk kembali ke menu utama, silakan ketik 1.");
+            String backToMenu = input("Konfiramsi");
+
+            if (backToMenu.equals("1")) {
+                showMainMenu();  // Kembali ke menu utama
+                break;  // Keluar dari loop setelah kembali ke menu utama
+            } else {
+                System.out.println("Gagal Mengkonfirmasi. Silakan coba lagi."); // Pesan jika input tidak valid
+            }
         }
     }
 
@@ -192,6 +250,28 @@ public class mainMenu {
                 editOrder(); // Meminta input ulang jika pilihan tidak valid
         }
     }
+
+    public static void orderHistory() {
+        System.out.println("==== RIWAYAT PEMESANAN ====");
+        if (gameChoice.isEmpty()) {
+            System.out.println("Belum ada riwayat pemesanan.");
+        } else {
+            System.out.println("+----------------------+--------------------------------+");
+            System.out.printf("| %-20s | %-30s |\n", "Nama Pelanggan", name);
+            System.out.printf("| %-20s | %-30s |\n", "ID User", userId);
+            System.out.printf("| %-20s | %-30s |\n", "Account", account);
+            System.out.printf("| %-20s | %-30s |\n", "No. Telp", phone);
+            System.out.printf("| %-20s | %-30s |\n", "Game yang dipilih", gameChoice);
+            System.out.printf("| %-20s | %-30s |\n", "Target Rank", rankChoice);
+            System.out.printf("| %-20s | %-30s |\n", "Request ke Joki", request);
+            System.out.printf("| %-20s | %-30s hari |\n", "Waktu penyelesaian", daysChoice);
+            System.out.printf("| %-20s | Rp. %-27.2f |\n", "Total Harga", totalPrice);
+            System.out.printf("| %-20s | %-30s |\n", "Metode Pembayaran", paymentMethodChoice);
+            System.out.println("+----------------------+--------------------------------+");
+        }
+    }
+
+
 
 
 
