@@ -70,16 +70,34 @@ public class mainMenu {
         System.out.println("1. PUBG");
         System.out.println("2. Mobile Legends");
         System.out.println("3. Free Fire");
-        String gameChoice = input("Pilih game");
+        String choice = input("Pilih game");
+
+        // Menyimpan pilihan ke variabel global
+        switch (choice) {
+            case "1":
+                gameChoice = "PUBG";
+                break;
+            case "2":
+                gameChoice = "Mobile Legends";
+                break;
+            case "3":
+                gameChoice = "Free Fire";
+                break;
+            default:
+                System.out.println("Pilihan tidak valid, coba lagi.");
+                showGameSelection(); // Meminta input ulang jika pilihan tidak valid
+        }
+
         System.out.println("Anda memilih game: " + gameChoice);
     }
 
+
     public static void registerUser() {
         System.out.println("==== PENDAFTARAN AKUN ====");
-        String name = input("Nama Pelanggan");
-        String userId = input("ID User");
-        String account = input("Account");
-        String phone = input("No. Telp");
+        name = input("Nama Pelanggan");
+        userId = input("ID User");
+        account = input("Account");
+        phone = input("No. Telp");
         System.out.println("Akun berhasil didaftarkan atas nama: " + name);
     }
 
@@ -88,14 +106,30 @@ public class mainMenu {
         System.out.println("1. +1 Rank (Rp. 15.000)");
         System.out.println("2. +2 Rank (Rp. 30.000)");
         System.out.println("3. +3 Rank (Rp. 45.000)");
-        String rankChoice = input("Pilih target rank");
-        System.out.println("Anda memilih: " + rankChoice);
+        rankChoice = input("Pilih target rank");
 
+        switch (rankChoice){
+            case "1":
+                totalPrice = 15000;
+                break;
+            case "2":
+                totalPrice = 30000;
+                break;
+            case "3":
+                totalPrice = 45000;
+                break;
+            default:
+                System.out.println("Pilihan tidak valid, coba lagi.");
+                chooseTargetRank();
+                return;
+        }
+        System.out.println("Anda memilih: " + rankChoice);
+        System.out.println("Harga saat ini: Rp. " + totalPrice);
     }
 
     public static void requestToJoki() {
         System.out.println("==== REQUEST KE JOKI ====");
-        String request = input("Masukkan request Anda");
+        request = input("Masukkan request Anda");
         System.out.println("Request Anda: \"" + request + "\" telah dikirim.");
     }
 
@@ -104,7 +138,7 @@ public class mainMenu {
         System.out.println("Berapa lama waktu yang Anda inginkan untuk menyelesaikan order?");
         System.out.println("Pilih antara 1 hingga 3 hari");
 
-        String daysChoice = input("Masukkan jumlah hari");
+        daysChoice = input("Masukkan jumlah hari");
 
         // Memeriksa apakah pilihan user berada di antara 1 hingga 3 hari
         switch (daysChoice) {
