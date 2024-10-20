@@ -274,7 +274,8 @@ public class mainMenu {
         System.out.println("3. Edit Target Rank");
         System.out.println("4. Edit Request ke Joki");
         System.out.println("5. Edit Waktu Selesai");
-        System.out.println("6. Batalkan Edit");
+        System.out.println("6. Edit Metode Pembayaran");
+        System.out.println("7. Batalkan Edit");
         String editChoice = input("Pilih yang ingin diubah");
 
         switch (editChoice) {
@@ -294,6 +295,9 @@ public class mainMenu {
                 chooseCompletionTime(); // Ulangi pemilihan waktu selesai
                 break;
             case "6":
+                paymentMethod(); // Ulangi Pemilihan metode pembayaran
+                break;
+            case "7":
                 System.out.println("Batal melakukan edit.");
                 break;
             default:
