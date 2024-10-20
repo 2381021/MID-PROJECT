@@ -44,6 +44,9 @@ public class mainMenu {
                 case "4":
                     orderHistory();
                     break;
+                case "5":
+                    giveRating();
+                    break;
                 case "6":
                     isRunning = false;
                     System.out.println("Terima kasih telah menggunakan layanan kami!");
@@ -205,12 +208,26 @@ public class mainMenu {
         // Konfirmasi total harga setelah diskon (jika ada)
         System.out.println("Total yang harus dibayar: Rp. " + totalPrice);
         System.out.println("Terima kasih telah melakukan pemesanan. Silakan lakukan pembayaran untuk menyelesaikan transaksi.");
+        System.out.println("=========================================");
+
+        while (true) {  // Loop terus-menerus hingga pengguna memberikan input yang benar
+            System.out.println("silakan ketik 'bayar' jika sudah membayar");
+            String paymentConfirmation = input("Konfirmasi");
+
+            if (paymentConfirmation.equalsIgnoreCase("bayar")) {
+                showNotification();  // Kembali ke menu utama
+                break;  // Keluar dari loop setelah kembali ke menu utama
+            } else {
+                System.out.println("Gagal Mengonfirmasi pembayaran. Silakan coba lagi."); // Pesan jika input tidak valid
+            }
+        }
     }
 
     public static void showNotification () {
         System.out.println("=========================================");
         System.out.println("✨ Terima kasih telah melakukan pemesanan joki untuk akun game online Anda! ✨");
         System.out.println("Saat ini, pesanan Anda sedang diproses. Kami akan segera menghubungi Anda dengan informasi lebih lanjut.");
+        System.out.println("=========================================");
 
         while (true) {  // Loop terus-menerus hingga pengguna memberikan input yang benar
             System.out.println("Untuk kembali ke menu utama, silakan ketik 1.");
@@ -290,23 +307,73 @@ public class mainMenu {
         if (gameChoice.isEmpty()) {
             System.out.println("Belum ada riwayat pemesanan.");
         } else {
-            System.out.println("+----------------------+--------------------------------+");
-            System.out.printf("| %-20s | %-30s |\n", "Nama Pelanggan", name);
-            System.out.printf("| %-20s | %-30s |\n", "ID User", userId);
-            System.out.printf("| %-20s | %-30s |\n", "Account", account);
-            System.out.printf("| %-20s | %-30s |\n", "No. Telp", phone);
-            System.out.printf("| %-20s | %-30s |\n", "Game yang dipilih", gameChoice);
-            System.out.printf("| %-20s | %-30s |\n", "Target Rank", rankChoice);
-            System.out.printf("| %-20s | %-30s |\n", "Request ke Joki", request);
-            System.out.printf("| %-20s | %-30s hari |\n", "Waktu penyelesaian", daysChoice);
-            System.out.printf("| %-20s | Rp. %-27.2f |\n", "Total Harga", totalPrice);
-            System.out.printf("| %-20s | %-30s |\n", "Metode Pembayaran", paymentMethodChoice);
-            System.out.println("+----------------------+--------------------------------+");
+            System.out.println("=========================================");
+            System.out.printf("%-20s: %s\n", "Nama Pelanggan", name);
+            System.out.printf("%-20s: %s\n", "ID User", userId);
+            System.out.printf("%-20s: %s\n", "Account", account);
+            System.out.printf("%-20s: %s\n", "No. Telp", phone);
+            System.out.printf("%-20s: %s\n", "Game yang dipilih", gameChoice);
+            System.out.printf("%-20s: %s\n", "Target Rank", rankChoice);
+            System.out.printf("%-20s: %s\n", "Request ke Joki", request);
+            System.out.printf("%-20s: %s hari\n", "Waktu penyelesaian", daysChoice);
+            System.out.printf("%-20s: Rp. %.2f\n", "Total Harga", totalPrice);
+            System.out.printf("%-20s: %s\n", "Metode Pembayaran", paymentMethodChoice);
+            System.out.println("=========================================");
+
+            if (userRating > 0 && !userReview.isEmpty()) {
+                System.out.println("\n==== ULASAN TERAKHIR ====");
+                System.out.println("Rating: " + userRating + " dari 5");
+                System.out.println("Ulasan: " + userReview + "\n");
+            } else {
+                System.out.println("\nBelum ada ulasan.\n");
+            }
         }
+
+        while (true) {  // Loop terus-menerus hingga pengguna memberikan input yang benar
+            System.out.println("Untuk kembali ke menu utama, silakan ketik 1.");
+            String backToMenu = input("Konfiramsi");
+
+            if (backToMenu.equals("1")) {
+                showMainMenu();  // Kembali ke menu utama
+                break;  // Keluar dari loop setelah kembali ke menu utama
+            } else {
+                System.out.println("Gagal Mengkonfirmasi. Silakan coba lagi."); // Pesan jika input tidak valid
+            }
+        }
+
     }
 
+    private static int userRating = 0;
+    private static String userReview = "";
+    public static void giveRating() {
+        System.out.println("==== BERIKAN ULASAN ====");
 
+        // Meminta rating dari pengguna (skala 1 hingga 5)
+        int rating = 0;
+        while (rating < 1 || rating > 5) {
+            System.out.println("Beri rating untuk layanan kami (1-5):");
+            try {
+                rating = Integer.parseInt(input("Rating"));
+                if (rating < 1 || rating > 5) {
+                    System.out.println("Rating tidak valid. Silakan masukkan nilai antara 1 hingga 5.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Input tidak valid. Silakan masukkan angka.");
+            }
+        }
 
+        // Meminta ulasan dari pengguna
+        String review = input("Tulis ulasan Anda tentang layanan kami");
+
+        // Menyimpan ulasan dan rating
+        userRating = rating;
+        userReview = review;
+
+        // Tampilkan kembali ulasan yang diberikan
+        System.out.println("Terima kasih atas ulasan Anda!");
+        System.out.println("Rating Anda: " + userRating + " dari 5");
+        System.out.println("Ulasan Anda: " + userReview + "\n");
+    }
 
 
     public static String input(String info) {
